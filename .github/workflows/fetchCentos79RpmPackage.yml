@@ -1,0 +1,62 @@
+---
+
+name: Fetch RPM package and dependencies for Centos target
+on:
+  workflow_dispatch:
+    inputs:
+      targetHost:
+        description: 'Target host'
+        default: 'centos:centos7'
+        required: true
+      packageName:
+        description: 'Package to fetch'
+        required: true
+
+jobs:
+  FetchingOnTarget:
+    runs-on: ubuntu-latest
+    container:
+      image: ${{ github.event.inputs.targetHost }}
+    steps:
+    - name: Install repositories
+      run: |
+        mkdir export && cd export
+        ed -ie "s/gpgcheck=.*/gpgcheck=0/" /etc/yum.conf || true
+        yum -y install yum-utils
+        yum -y install dnf
+        dnf -y install 'dnf-command(download)'
+        yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+        #yum -y install https://rpms.remirepo.net/enterprise/remi-release-7.rpm
+        #rpm -Uvh https://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm
+        #yum install -y https://download1.rpmfusion.org/free/el/rpmfusion-free-release-7.noarch.rpm
+        #yum install -y https://download1.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-7.noarch.rpm
+        yum-config-manager --add-repo http://mirror.centos.org/centos/7/atomic/x86_64/
+        yum-config-manager --add-repo http://mirror.centos.org/centos/7/cloud/x86_64/openstack-train/
+        yum-config-manager --add-repo http://mirror.centos.org/centos/7/opstools/x86_64/
+        yum-config-manager --add-repo http://mirror.centos.org/centos/7/sclo/x86_64/
+        yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+        yum-config-manager --add-repo https://nginx.org/packages/centos/7/x86_64/
+        yum-config-manager --add-repo https://download.postgresql.org/pub/repos/yum/12/redhat/rhel-7-x86_64/
+        yum-config-manager --add-repo https://download.postgresql.org/pub/repos/yum/13/redhat/rhel-7-x86_64/
+        yum-config-manager --add-repo https://download.postgresql.org/pub/repos/yum/14/redhat/rhel-7-x86_64/
+        yum-config-manager --add-repo https://download.postgresql.org/pub/repos/yum/common/redhat/rhel-7-x86_64/
+        yum-config-manager --add-repo https://download.virtualbox.org/virtualbox/rpm/el/7/x86_64/
+        yum clean all
+        yum makecache
+        
+    - name: Check Match in repositories and test dry installation
+      run : |
+        echo "repoquery *${{ github.event.inputs.packageName }}*" && repoquery *${{ github.event.inputs.packageName }}*
+        echo "dnf info ${{ github.event.inputs.packageName }}" && dnf info "${{ github.event.inputs.packageName }}"
+        echo "test dry installation" && yes no | dnf install "${{ github.event.inputs.packageName }}" || true
+        
+    - name: Fetch package and dependencies
+      run: |
+        dnf download --resolve --downloaddir="./" ${{ github.event.inputs.packageName }}
+        
+    - name: Upload Archive
+      uses: actions/upload-artifact@v3.1.0
+      with:
+        name: export
+        path: export
+        retention-days: 2
