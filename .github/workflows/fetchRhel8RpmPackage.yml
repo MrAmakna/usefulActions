@@ -1,6 +1,6 @@
 ---
 
-name: Fetch RPM package and dependencies for Rhel8/Centos8 target
+name: Fetch RPM Rhel8
 on:
   workflow_dispatch:
     inputs:
