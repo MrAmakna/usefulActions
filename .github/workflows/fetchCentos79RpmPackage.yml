@@ -1,6 +1,6 @@
 ---
 
-name: Fetch RPM package and dependencies for Centos target
+name: Fetch RPM for Centos7.9
 on:
   workflow_dispatch:
     inputs:
