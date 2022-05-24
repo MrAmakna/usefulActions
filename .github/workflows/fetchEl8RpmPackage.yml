@@ -46,7 +46,7 @@ jobs:
     - name: Check Match in repositories and test dry installation
       run : |
         echo "repoquery *${{ github.event.inputs.packageName }}*" && repoquery *${{ github.event.inputs.packageName }}*
-        echo "dnf info "${{ github.event.inputs.packageName }}" && dnf info "${{ github.event.inputs.packageName }}"
+        echo "dnf info ${{ github.event.inputs.packageName }}" && dnf info "${{ github.event.inputs.packageName }}"
         echo "test dry installation" && yes no | dnf install "${{ github.event.inputs.packageName }}" || true
         
     - name: Fetch package and dependencies
