@@ -33,7 +33,8 @@ jobs:
         yum-config-manager --add-repo http://mirror.centos.org/centos/7/atomic/x86_64/
         yum-config-manager --add-repo http://mirror.centos.org/centos/7/cloud/x86_64/openstack-train/
         yum-config-manager --add-repo http://mirror.centos.org/centos/7/opstools/x86_64/
-        yum-config-manager --add-repo http://mirror.centos.org/centos/7/sclo/x86_64/
+        yum-config-manager --add-repo http://mirror.centos.org/centos/7/sclo/x86_64/sclo/
+        yum-config-manager --add-repo http://mirror.centos.org/centos/7/sclo/x86_64/rh/
         yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
         yum-config-manager --add-repo https://nginx.org/packages/centos/7/x86_64/
         yum-config-manager --add-repo https://download.postgresql.org/pub/repos/yum/12/redhat/rhel-7-x86_64/
