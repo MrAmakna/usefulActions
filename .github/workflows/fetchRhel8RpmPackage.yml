@@ -57,5 +57,5 @@ jobs:
       uses: actions/upload-artifact@v3.1.0
       with:
         name: export
-        path: export
+        path: ./
         retention-days: 2
