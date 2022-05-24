@@ -1,6 +1,6 @@
 ---
 
-name: Fetch RPM Rhel8
+name: Fetch RPM for RHEL8
 on:
   workflow_dispatch:
     inputs:
