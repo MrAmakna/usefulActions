@@ -25,7 +25,7 @@ jobs:
         yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
         yum -y install https://dl.fedoraproject.org/pub/epel/epel-next-release-latest-8.noarch.rpm
         yum -y install yum-utils
-        yum module disable * -y
+        #yum module disable * -y
         yum-config-manager --add-repo http://mirror.centos.org/centos/8-stream/BaseOS/x86_64/os/
         yum-config-manager --add-repo http://mirror.centos.org/centos/8-stream/AppStream/x86_64/os/
         yum-config-manager --add-repo http://mirror.centos.org/centos/8-stream/PowerTools/x86_64/os/
