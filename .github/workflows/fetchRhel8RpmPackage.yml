@@ -27,6 +27,7 @@ jobs:
         yum -y install yum-utils
         #yum module disable * -y
         yum-config-manager --add-repo http://mirror.ghettoforge.org/distributions/gf/el/8/gf/x86_64/
+        yum-config-manager --add-repo http://mirror.ghettoforge.org/distributions/gf/el/8/plus/x86_64/
         yum-config-manager --add-repo http://mirror.centos.org/centos/8-stream/BaseOS/x86_64/os/
         yum-config-manager --add-repo http://mirror.centos.org/centos/8-stream/AppStream/x86_64/os/
         yum-config-manager --add-repo http://mirror.centos.org/centos/8-stream/PowerTools/x86_64/os/
