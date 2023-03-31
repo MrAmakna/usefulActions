@@ -1,0 +1,29 @@
+---
+
+name: Fetch Docker image
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag'
+        default: 'latest'
+        required: true
+      imageName:
+        description: 'Image to fetch'
+        required: true
+
+jobs:
+  FetchingOnTarget:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Fetch Image
+      run: |
+        docker pull ${{ github.event.inputs.imageName }}:${{ github.event.inputs.tag }}
+        docker save ${{ github.event.inputs.imageName }}:${{ github.event.inputs.tag }} | gzip > ${{ github.event.inputs.imageName }}.tar.gz
+        
+    - name: Upload Archive
+      uses: actions/upload-artifact@v3.1.2
+      with:
+        name: ${{ github.event.inputs.imageName }}
+        path: ./
+        retention-days: 2
