@@ -23,12 +23,12 @@ jobs:
     - name: Save Image
       run: |
         echo "GITHUB_IMAGE_SHORT=${${{ github.event.inputs.imageName }}##*/}" >> $GITHUB_ENV
-        docker save ${{ github.event.inputs.imageName }}:${{ github.event.inputs.tag }} | gzip > ${env.GITHUB_IMAGE_SHORT}.tar.gz
+        docker save ${{ github.event.inputs.imageName }}:${{ github.event.inputs.tag }} | gzip > ${{ env.GITHUB_SHA_SHORT }}.tar.gz
 
         
     - name: Upload Archive
       uses: actions/upload-artifact@v3.1.2
       with:
-        name: ${env.GITHUB_IMAGE_SHORT}
+        name: ${{ env.GITHUB_SHA_SHORT }}
         path: ./
         retention-days: 2
