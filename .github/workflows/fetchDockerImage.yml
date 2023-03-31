@@ -27,6 +27,6 @@ jobs:
     - name: Upload Archive
       uses: actions/upload-artifact@v3.1.2
       with:
-        name: ${{ github.event.inputs.imageName }}
+        name: ${${{ github.event.inputs.imageName }}##*/}
         path: ./
         retention-days: 2
