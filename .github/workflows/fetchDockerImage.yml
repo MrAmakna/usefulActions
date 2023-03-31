@@ -19,7 +19,10 @@ jobs:
     - name: Fetch Image
       run: |
         docker pull ${{ github.event.inputs.imageName }}:${{ github.event.inputs.tag }}
-        docker save ${{ github.event.inputs.imageName }}:${{ github.event.inputs.tag }} | gzip > ${{ github.event.inputs.imageName }}.tar.gz
+    
+    - name: Save Image
+      run: |
+        docker save ${{ github.event.inputs.imageName }}:${{ github.event.inputs.tag }} | gzip > ${${{ github.event.inputs.imageName }}##*/}.tar.gz
         
     - name: Upload Archive
       uses: actions/upload-artifact@v3.1.2
