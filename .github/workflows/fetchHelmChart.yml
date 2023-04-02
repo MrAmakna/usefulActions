@@ -33,7 +33,7 @@ jobs:
     - name: Fetch Chart
       run: |
         mkdir chart
-        tag=if [[ ! -z ${{ github.event.inputs.tag }} ]]; then echo ":${{ github.event.inputs.tag }}"; fi
+        [[ ! -z ${{ github.event.inputs.tag }} ]] && tag=echo ":${{ github.event.inputs.tag }}"
         helm pull myrepo/${{ github.event.inputs.chartName }}$tag --untar --untardir ./chart
     
     - name: Upload Archive
