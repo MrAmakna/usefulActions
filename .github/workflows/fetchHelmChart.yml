@@ -34,7 +34,7 @@ jobs:
       run: |
         set -x
         mkdir chart
-        [[ ! -z "${{ github.event.inputs.tag }}" ]] && tag=echo ":${{ github.event.inputs.tag }}"
+        [[ ! -z "${{ github.event.inputs.tag }}" ]] && tag=$(echo ":${{ github.event.inputs.tag }}")
         helm pull myrepo/${{ github.event.inputs.chartName }}$tag --untar --untardir ./chart
     
     - name: Upload Archive
