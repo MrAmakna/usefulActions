@@ -40,6 +40,6 @@ jobs:
       uses: actions/upload-artifact@v3.1.2
       with:
         name: ${{ github.event.inputs.chartName }}
-        path: ./
+        path: ./chart
         retention-days: 2
 
