@@ -32,10 +32,9 @@ jobs:
 
     - name: Fetch Chart
       run: |
-        set -x
         mkdir chart
-        [[ ! -z "${{ github.event.inputs.tag }}" ]] && tag=$(echo ":${{ github.event.inputs.tag }}")
-        helm pull myrepo/${{ github.event.inputs.chartName }}$tag --untar --untardir ./chart
+        [[ ! -z "${{ github.event.inputs.tag }}" ]] && tag=$(echo "--version ${{ github.event.inputs.tag }}")
+        helm pull myrepo/${{ github.event.inputs.chartName }} $tag --untar --untardir ./chart
     
     - name: Upload Archive
       uses: actions/upload-artifact@v3.1.2
