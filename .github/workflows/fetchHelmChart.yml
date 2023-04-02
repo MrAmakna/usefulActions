@@ -15,9 +15,6 @@ on:
         description: 'Tag'
         default: 'latest'
         required: true
-      short:
-        description: 'Short name'
-        required: true
 
 jobs:
   FetchingOnTarget:
@@ -36,12 +33,13 @@ jobs:
 
     - name: Fetch Chart
       run: |
-        helm pull myrepo/${{ github.event.inputs.chartName }}${${{ github.event.inputs.tag }}:+:${{ github.event.inputs.tag }}}
+        mkdir chart
+        helm pull myrepo/${{ github.event.inputs.chartName }}${${{ github.event.inputs.tag }}:+:${{ github.event.inputs.tag }}} --untar --untardir ./chart
     
     - name: Upload Archive
       uses: actions/upload-artifact@v3.1.2
       with:
-        name: ${{ github.event.inputs.short }}
-        path: ./
+        name: ${{ github.event.inputs.chartName }}
+        path: ./chart
         retention-days: 2
 
