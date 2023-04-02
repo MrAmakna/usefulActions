@@ -32,10 +32,11 @@ jobs:
     - name: Add Repo
       run: |
         helm repo add myrepo ${{ github.event.inputs.chartRepo }}
+        helm repo update
 
     - name: Fetch Chart
       run: |
-        helm pull myrepo/${{ github.event.inputs.chartName }}:${{ github.event.inputs.tag }}
+        helm pull myrepo/${{ github.event.inputs.chartName }}${${{ github.event.inputs.tag }}:+:${{ github.event.inputs.tag }}}
     
     - name: Upload Archive
       uses: actions/upload-artifact@v3.1.2
