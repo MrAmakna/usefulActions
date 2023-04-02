@@ -35,7 +35,7 @@ jobs:
 
     - name: Fetch Chart
       run: |
-        helm pull ${{ github.event.inputs.chartName }}:${{ github.event.inputs.tag }}
+        helm pull myrepo/${{ github.event.inputs.chartName }}:${{ github.event.inputs.tag }}
     
     - name: Upload Archive
       uses: actions/upload-artifact@v3.1.2
