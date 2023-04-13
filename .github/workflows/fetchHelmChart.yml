@@ -36,12 +36,13 @@ jobs:
       run: |
         mkdir chart
         [[ ! -z "${{ github.event.inputs.tag }}" ]] && tag=$(echo "--version ${{ github.event.inputs.tag }}")
+        helm pull myrepo/${{ github.event.inputs.chartName }} $tag
         helm pull myrepo/${{ github.event.inputs.chartName }} $tag --untar --untardir ./chart
     
     - name: Upload Archive
       uses: actions/upload-artifact@v3.1.2
       with:
         name: ${{ github.event.inputs.chartName }}
-        path: ./chart
+        path: .
         retention-days: 2
 
