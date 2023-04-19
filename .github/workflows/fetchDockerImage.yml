@@ -22,7 +22,7 @@ jobs:
     steps:
     - name: Fetch Image
       run: |
-        curl -X GET https://${{ github.event.inputs.imageName }}:5000/v2/_catalog || true
+        #curl -X GET https://${{ github.event.inputs.imageName }}:5000/v2/_catalog || true
         docker pull ${{ github.event.inputs.imageName }}:${{ github.event.inputs.tag }}
     
     - name: Save Image
