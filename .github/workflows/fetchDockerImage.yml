@@ -7,6 +7,7 @@ on:
       imageName:
         description: 'Image to fetch'
         required: true
+        default: docker.io/<toto>
       tag:
         description: 'Tag'
         default: 'latest'
